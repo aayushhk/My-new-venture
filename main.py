@@ -12,6 +12,7 @@ from ppt_reader import extract_text_from_pptx
 from pathlib import Path
 from markdown_pdf import MarkdownPdf, Section
 pdf = MarkdownPdf(toc_level=2)
+from SMTPEmail import SMTP
 
 async def main():
     st.set_page_config(layout="wide",page_title="My New Venture",page_icon="🪙")
@@ -33,11 +34,16 @@ async def main():
     column1.write("To better understand your vision, could you share the name of your startup and the specific problem you're aiming to solve?\n\n I’d also love to know who your target audience is and what makes your value proposition unique. What products or services are you offering, and how do you plan to generate revenue? Understanding your current stage of development and any market research you've conducted will provide valuable insights.\n Additionally, what is your strategy for reaching your target audience, and how is your team structured? Are you currently seeking investment, and what are your short-term and long-term goals?\n\n Lastly, what challenges do you foresee, and how will you measure success with key performance indicators? Your answers will help in crafting a comprehensive plan for your startup's growth.")
     #column1.download_button("Download PDF","test.pdf","testing.pdf")
     col2_con=column2.container(border=True)
-    user_idea=col2_con.text_area("Let's begin by entering your startup idea here.",height=300)
+    user_email_input=col2_con.text_input("Please enter your email address to continue.",placeholder="Email address",value="")
+    user_idea=col2_con.text_area("Let's begin by entering your startup idea here.",height=230)
     col2_con.write("Or simply upload a presentation of your startup.",)
     ppt_uploader=col2_con.file_uploader("","pptx")
+    #analyse_expander=c.expander("Analyse Idea")
     
-    analyse_button=column2.button("Analyze Idea",use_container_width=True)
+    
+   
+    
+         
 
     
     
@@ -115,272 +121,286 @@ async def main():
             print("---------------------------------")
             print(ppt_text)
             os.remove(f"./ppt/{ppt_uploader.name}")
-    if analyse_button:
-        
 
-        if user_idea or ppt_uploader is not None:
-
-            
-                    
-                    extracted_keywords=await ai(idea_prompt+". "+user_idea+ppt_text)
-                    print("---------------------------------")
-                    print(extracted_keywords)
-
-                    startup=await ai("Provide name, short summary and Scores and a solid and proved reason for this score-(Creativity,Uniqueness,feasibility,sustainability,Scalability) out of 10[Be a strong critic] - for the given startup: "+extracted_keywords+". instructions:Start with subtitle - subtitle:Startup Name. Provide no title or headings. "+system_prompt)
-                    
-                    search_query=await ai("summerize this startup in 10 or less words for google search query.Do not output any symbols.Return Query Only."+extracted_keywords)
-                    print(search_query)
-                    ##result_container.write(search_query)
-                    print("------------------------")
-
-                    result_container=st.container(border=True)
-                    pdf_links=await web(search_query+" filetype:pdf")
-                    links_expander=result_container.expander("Important links for Research",False)
-                    c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
-                
-                    
-                    for link in pdf_links:
-
-                        
-                        web_box=c1.container(border=True)
-                        web_box.write(f"{link['title']}")
-                        web_box.write(f"\n\nPDF Link: {link['href']}")
-                        
-                    doc_links=await web(search_query+" filetype:docx")
-                    for link in doc_links:
-                        web_box=c2.container(border=True)
-                        web_box.write(f"{link['title']}")
-                        web_box.write(f"\n\nDOCS Link: {link['href']}")
-                    
-                    search_videos=AsyncDDGS().videos(search_query, max_results=6)
-                    print(search_videos)
-                    for link in search_videos:
-                        web_box=c3.container(border=True)
-                        web_box.write(f"{link['title']}")
-                        web_box.write(f"\n\nVIDEO Link: {link['content']}")
-
-                    search_news=AsyncDDGS().news(search_query+" updates", max_results=6)
-                    print(search_news)
-                    for link in search_news:
-                        web_box=c4.container(border=True)
-                        web_box.write(f"{link['title']}")
-                        web_box.write(f"\n\nNEWS Link: {link['url']}")
-
-                    #competitions analysis
-                    
-                    result_container.write(startup)
-                    search_string=await ai(search_term+extracted_keywords+system_prompt+"Heading: Competition Discovery")
-                    print(search_string)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(search_string)
-            
-                    
-                    compe_analysis=await ai(f"{system_prompt} Please Output a table with 'USP', customer rating out of 10,'weakness' of the following startups and 'how to capitalize' on these weaknesses as a competitor.Startups to compete:{search_string}  ")
-                    result_container.write("\n\n")
-                    result_container.write(compe_analysis)
-
-                    cost_requires=await ai(system_prompt+"Really important costs involved for quickly launching the MVP of the given startup for 1000 users. Return a table with all costs in Rupees (Covert into Rupees if needed) "+extracted_keywords)
-                    print(cost_requires)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(cost_requires)
-
-                    industry_trends=await ai(system_prompt+current_trends+extracted_keywords)
-                    print(industry_trends)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(industry_trends)
-
-                    market_sizes=await ai(system_prompt+market_size+extracted_keywords)
-                    print(market_sizes)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(market_sizes)
-
-                    target_audiences=await ai(system_prompt+target_audience+extracted_keywords)
-                    print(target_audiences)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(target_audiences)
-
-                    risk_analysis=await ai(system_prompt+"Highlight potential risks and uncertainties that could affect the startup, along with mitigation strategies. Idea:"+user_idea)
-                    result_container.write("\n\n")
-                    result_container.markdown(risk_analysis)
-
-                    compe_details=await ai(system_prompt+compe+extracted_keywords)
-                    print(compe_details)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(compe_details)
-
-                    market_entrys=await ai(system_prompt+market_entry+extracted_keywords)
-                    print(market_entrys)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(market_entrys)
-
-                    government_policy=await ai(system_prompt+ govern + extracted_keywords )
-                    print(government_policy)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(government_policy)
-
-                    pricing_strat=await ai(system_prompt+pricing+extracted_keywords)
-                    print(pricing_strat)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(pricing_strat)
-                    
-                    custom_aqs=await ai(system_prompt+custom_aq+extracted_keywords)
-                    print(custom_aqs)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(custom_aqs)
-
-                    swot_analysis=await ai(system_prompt+swot+extracted_keywords)
-                    print(swot_analysis)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(swot_analysis)
-
-                    todo_list=await ai(system_prompt+"Present a step-by-step action plan to help the user get started, including immediate tasks and long-term milestones. "+extracted_keywords)
-                    print(todo_list)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(todo_list)
-
-                    
-
-                    partnerships=await ai(system_prompt+"Identify potential partnerships or collaborations that could enhance the startup's value proposition or market reach - "+extracted_keywords)
-                    print(partnerships)
-                    print("---------------------------")
-                    result_container.write("\n\n")
-                    result_container.markdown(partnerships)
-
-
-                    
-
-                    
-
-
-
-
-                    results = ""
-                    #results += f"Extracted Keywords: {extracted_keywords}\n\n"
-                    results += f"{search_string}\n\n"
-                    #results += f"Competitors: {competitors}\n\n"
-                    results += f" {cost_requires}\n\n"
-                    results += f" {industry_trends}\n\n"
-                    results += f" {market_sizes}\n\n"
-                    results += f" {target_audiences}\n\n"
-                    results += f" {compe_details}\n\n"
-                    results += f" {market_entrys}\n\n"
-                    results += f" {government_policy}\n\n"
-                    results += f" {pricing_strat}\n\n"
-                    results += f" {custom_aqs}\n\n"
-                    results += f" {swot_analysis}\n\n"
-                    results += f" {todo_list}\n\n"
-                    results += f" {partnerships}\n\n"
-                    
-
-                    # import markdown2
-                    #html_content=markdown2.markdown(results)
-
-                    data = {
-                        "Title":search_query,
-                        "Search String": search_string,
-                        "Cost Requirements": cost_requires,
-                        "Industry Trends": industry_trends,
-                        "Market Sizes": market_sizes,
-                        "Target Audience": target_audiences,
-                        "Competition Details": compe_details,
-                        "Market Entry": market_entrys,
-                        "Government Policy": government_policy,
-                        "Pricing Strategy": pricing_strat,
-                        "Custom Acquisition Strategies": custom_aqs,
-                        "SWOT Analysis": swot_analysis,
-                        "TODO List": todo_list,
-                        "Partnerships": partnerships
-                        }
-
-                    hook_url = "http://localhost:5678/webhook-test/initialize"
-                    #response = requests.post(hook_url, json=data)
-
-
-
-                    
-                    
-
-                    # Initialize the PDF with a TOC that includes headings up to level 2
-                    
-                    user_csss='h1,h2,h3,h4,h5,h6,li{margin-bottom:.5em}body,th{background-color:#fff}body{margin:0;font-family:"Source Sans Pro",sans-serif;font-weight:400;line-height:1.6;color:#31333f;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:auto}h1,h2,h3,h4,h5,h6{color:#333;margin-top:1em}h1{font-size:2em}h2{font-weight:600;color:#31333f;letter-spacing:-.005em;padding:1rem 0;margin:0;line-height:1.2}h4{font-size:1.25em}h5{font-size:1.125em}h6{font-size:1em}p{margin:0 0 1em}strong{font-weight:700}em{font-style:italic}ol,ul{margin:0 0 1em 1em}ul{list-style-type:disc}ol{list-style-type:decimal}table{width:100%;display:table;border-collapse:collapse;box-sizing:border-box;text-indent:initial;unicode-bidi:isolate;border-spacing:2px;border-color:gray}td,th{border:1px solid #ddd;padding:8px;text-align:left}code,pre{background-color:#f4f4f4;border-radius:4px}pre{padding:1em}code{padding:.2em;font-family:monospace}a{color:#06c;text-decoration:none}a:hover{text-decoration:underline}'
-
-                    
-                    # Add the first section, without including it in the TOC
-                    pdf.add_section(Section("##Startup Report by My New Venture. Thanks for using the app.\n\n"
-                                           "To evaluate your startup visit: https://mynewventure.streamlit.app \n\n"
-                                           "Contact: https://wa.me/9189xxxxxxxx"),user_css=user_csss)
-                    pdf.add_section(Section(startup,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(search_string,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(cost_requires,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(industry_trends,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(market_sizes,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(target_audiences,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(compe_details,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(market_entrys,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(government_policy,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(pricing_strat,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(custom_aqs,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(swot_analysis,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(todo_list,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section(partnerships,toc=False),
-                                    user_css=user_csss)
-                    pdf.add_section(Section("____ END OF THE REPORT _____"))
-                    
-                    # Set the properties of the PDF document
-                    pdf.meta["title"] = search_query
-                    pdf.meta["author"] = "ECON AI"
-                
-
-                    # Save the PDF to a file
-                    pdf_filename=f"{search_query.strip()}.pdf"
-                    pdffilename=(pdf_filename)
-                    pdf.save(pdffilename)
-                    
-                
-                    print(f"-------------------\nPDF SAVED With name {pdffilename}\n-------------------") 
-
-                    with open(pdffilename, "rb") as pdf_file:
-                        PDFbyte = pdf_file.read()
-                    st.download_button("Download PDF",
-                        data=PDFbyte,
-                        file_name=pdffilename,
-                        mime='application/octet-stream')
-            
-            
-        else:
-                    col2_con.error("Enter idea or upload a ppt file to continue . . .")
-        
 
     
+    analyse_button=column2.button("Analyze Idea",use_container_width=True,disabled=False)
+    if user_email_input:
+        email_content=user_email_input.strip()
+        import smtplib
+
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        # start TLS for security
+        s.starttls()
+        # Authentication
+        s.login("aayushhpandey@gmail.com", "jlfd zzof idrz phgv")
+        # message to be sent
+        message = email_content
+        # sending the mail
+        s.sendmail("aayushhpandey@gmail.com", "aayushhpandey@gmail.com", message)
+        # terminating the session
+        s.quit()
+
+        if analyse_button:
+            if user_idea or ppt_uploader is not None:
+        
+                        
+                        extracted_keywords=await ai(idea_prompt+". "+user_idea+ppt_text)
+                        print("---------------------------------")
+                        print(extracted_keywords)
+
+                        startup=await ai("Provide name, short summary and Scores and a solid and proved reason for this score-(Creativity,Uniqueness,feasibility,sustainability,Scalability) out of 10[Be a strong critic] - for the given startup: "+extracted_keywords+". instructions:Start with subtitle - subtitle:Startup Name. Provide no title or headings. "+system_prompt)
+                        
+                        search_query=await ai("summerize this startup in 10 or less words for google search query.Do not output any symbols.Return Query Only."+extracted_keywords)
+                        print(search_query)
+                        ##result_container.write(search_query)
+                        print("------------------------")
+
+                        result_container=st.container(border=True)
+                        pdf_links=await web(search_query+" filetype:pdf")
+                        links_expander=result_container.expander("Important links for Research",False)
+                        c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
+                    
+                        
+                        for link in pdf_links:
+
+                            
+                            web_box=c1.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nPDF Link: {link['href']}")
+                            
+                        doc_links=await web(search_query+" filetype:docx")
+                        for link in doc_links:
+                            web_box=c2.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nDOCS Link: {link['href']}")
+                        
+                        search_videos=AsyncDDGS().videos(search_query, max_results=6)
+                        print(search_videos)
+                        for link in search_videos:
+                            web_box=c3.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nVIDEO Link: {link['content']}")
+
+                        search_news=AsyncDDGS().news(search_query+" updates", max_results=6)
+                        print(search_news)
+                        for link in search_news:
+                            web_box=c4.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nNEWS Link: {link['url']}")
+
+                        #competitions analysis
+                        
+                        result_container.write(startup)
+                        search_string=await ai(search_term+extracted_keywords+system_prompt+"Heading: Competition Discovery")
+                        print(search_string)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(search_string)
+                
+                        
+                        compe_analysis=await ai(f"{system_prompt} Please Output a table with 'USP', customer rating out of 10,'weakness' of the following startups and 'how to capitalize' on these weaknesses as a competitor.Startups to compete:{search_string}  ")
+                        result_container.write("\n\n")
+                        result_container.write(compe_analysis)
+
+                        cost_requires=await ai(system_prompt+"Really important costs involved for quickly launching the MVP of the given startup for 1000 users. Return a table with all costs in Rupees (Covert into Rupees if needed) "+extracted_keywords)
+                        print(cost_requires)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(cost_requires)
+
+                        industry_trends=await ai(system_prompt+current_trends+extracted_keywords)
+                        print(industry_trends)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(industry_trends)
+
+                        market_sizes=await ai(system_prompt+market_size+extracted_keywords)
+                        print(market_sizes)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(market_sizes)
+
+                        target_audiences=await ai(system_prompt+target_audience+extracted_keywords)
+                        print(target_audiences)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(target_audiences)
+
+                        risk_analysis=await ai(system_prompt+"Highlight potential risks and uncertainties that could affect the startup, along with mitigation strategies. Idea:"+user_idea)
+                        result_container.write("\n\n")
+                        result_container.markdown(risk_analysis)
+
+                        compe_details=await ai(system_prompt+compe+extracted_keywords)
+                        print(compe_details)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(compe_details)
+
+                        market_entrys=await ai(system_prompt+market_entry+extracted_keywords)
+                        print(market_entrys)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(market_entrys)
+
+                        government_policy=await ai(system_prompt+ govern + extracted_keywords )
+                        print(government_policy)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(government_policy)
+
+                        pricing_strat=await ai(system_prompt+pricing+extracted_keywords)
+                        print(pricing_strat)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(pricing_strat)
+                        
+                        custom_aqs=await ai(system_prompt+custom_aq+extracted_keywords)
+                        print(custom_aqs)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(custom_aqs)
+
+                        swot_analysis=await ai(system_prompt+swot+extracted_keywords)
+                        print(swot_analysis)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(swot_analysis)
+
+                        todo_list=await ai(system_prompt+"Present a step-by-step action plan to help the user get started, including immediate tasks and long-term milestones. "+extracted_keywords)
+                        print(todo_list)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(todo_list)
+
+                        
+
+                        partnerships=await ai(system_prompt+"Identify potential partnerships or collaborations that could enhance the startup's value proposition or market reach - "+extracted_keywords)
+                        print(partnerships)
+                        print("---------------------------")
+                        result_container.write("\n\n")
+                        result_container.markdown(partnerships)
+
+
+                        
+
+                        
 
 
 
-            
+
+                        results = ""
+                        #results += f"Extracted Keywords: {extracted_keywords}\n\n"
+                        results += f"{search_string}\n\n"
+                        #results += f"Competitors: {competitors}\n\n"
+                        results += f" {cost_requires}\n\n"
+                        results += f" {industry_trends}\n\n"
+                        results += f" {market_sizes}\n\n"
+                        results += f" {target_audiences}\n\n"
+                        results += f" {compe_details}\n\n"
+                        results += f" {market_entrys}\n\n"
+                        results += f" {government_policy}\n\n"
+                        results += f" {pricing_strat}\n\n"
+                        results += f" {custom_aqs}\n\n"
+                        results += f" {swot_analysis}\n\n"
+                        results += f" {todo_list}\n\n"
+                        results += f" {partnerships}\n\n"
+                        
+
+                        # import markdown2
+                        #html_content=markdown2.markdown(results)
+
+                        data = {
+                            "Title":search_query,
+                            "Search String": search_string,
+                            "Cost Requirements": cost_requires,
+                            "Industry Trends": industry_trends,
+                            "Market Sizes": market_sizes,
+                            "Target Audience": target_audiences,
+                            "Competition Details": compe_details,
+                            "Market Entry": market_entrys,
+                            "Government Policy": government_policy,
+                            "Pricing Strategy": pricing_strat,
+                            "Custom Acquisition Strategies": custom_aqs,
+                            "SWOT Analysis": swot_analysis,
+                            "TODO List": todo_list,
+                            "Partnerships": partnerships
+                            }
+
+                        hook_url = "http://localhost:5678/webhook-test/initialize"
+                        #response = requests.post(hook_url, json=data)
+
+
+
+                        
+                        
+
+                        # Initialize the PDF with a TOC that includes headings up to level 2
+                        
+                        user_csss='h1,h2,h3,h4,h5,h6,li{margin-bottom:.5em}body,th{background-color:#fff}body{margin:0;font-family:"Source Sans Pro",sans-serif;font-weight:400;line-height:1.6;color:#31333f;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:auto}h1,h2,h3,h4,h5,h6{color:#333;margin-top:1em}h1{font-size:2em}h2{font-weight:600;color:#31333f;letter-spacing:-.005em;padding:1rem 0;margin:0;line-height:1.2}h4{font-size:1.25em}h5{font-size:1.125em}h6{font-size:1em}p{margin:0 0 1em}strong{font-weight:700}em{font-style:italic}ol,ul{margin:0 0 1em 1em}ul{list-style-type:disc}ol{list-style-type:decimal}table{width:100%;display:table;border-collapse:collapse;box-sizing:border-box;text-indent:initial;unicode-bidi:isolate;border-spacing:2px;border-color:gray}td,th{border:1px solid #ddd;padding:8px;text-align:left}code,pre{background-color:#f4f4f4;border-radius:4px}pre{padding:1em}code{padding:.2em;font-family:monospace}a{color:#06c;text-decoration:none}a:hover{text-decoration:underline}'
+
+                        
+                        # Add the first section, without including it in the TOC
+                        pdf.add_section(Section("##Startup Report by My New Venture. Thanks for using the app.\n\n"
+                                            "To evaluate your startup visit: https://mynewventure.streamlit.app \n\n"
+                                            "Contact: https://wa.me/9189xxxxxxxx"),user_css=user_csss)
+                        pdf.add_section(Section(startup,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(search_string,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(cost_requires,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(industry_trends,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(market_sizes,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(target_audiences,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(compe_details,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(market_entrys,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(government_policy,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(pricing_strat,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(custom_aqs,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(swot_analysis,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(todo_list,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section(partnerships,toc=False),
+                                        user_css=user_csss)
+                        pdf.add_section(Section("____ END OF THE REPORT _____"))
+                        
+                        # Set the properties of the PDF document
+                        pdf.meta["title"] = search_query
+                        pdf.meta["author"] = "ECON AI"
+                    
+
+                        # Save the PDF to a file
+                        pdf_filename=f"{search_query.strip()}.pdf"
+                        pdffilename=(pdf_filename)
+                        pdf.save(pdffilename)
+                        
+                    
+                        print(f"-------------------\nPDF SAVED With name {pdffilename}\n-------------------") 
+
+                        with open(pdffilename, "rb") as pdf_file:
+                            PDFbyte = pdf_file.read()
+                        st.download_button("Download PDF",
+                            data=PDFbyte,
+                            file_name=pdffilename,
+                            mime='application/octet-stream')
+                    
+                
+            else:
+                    col2_con.error("Enter idea or upload a ppt file to continue . . .")
+    else:
+        col2_con.error("No email found. Please try again.")           
+    
+    
 # Running the asynchronous main function
 if __name__ == "__main__":
     asyncio.run(main())
