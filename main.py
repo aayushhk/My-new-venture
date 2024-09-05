@@ -14,7 +14,7 @@ from markdown_pdf import MarkdownPdf, Section
 pdf = MarkdownPdf(toc_level=2)
 
 async def main():
-    st.set_page_config(layout="wide",page_title="My new venture",page_icon="🪙")
+    st.set_page_config(layout="wide",page_title="My New Venture",page_icon="🪙")
     
 
     
