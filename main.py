@@ -118,7 +118,7 @@ async def main():
         if user_idea or ppt_uploader is not None:
 
             
-                    result_container=st.container(border=True)
+                    
                     extracted_keywords=await ai(idea_prompt+". "+user_idea+ppt_text)
                     print("---------------------------------")
                     print(extracted_keywords)
@@ -167,10 +167,7 @@ async def main():
                     print("---------------------------")
                     result_container.write("\n\n")
                     result_container.markdown(search_string)
-                
-
-                    
-
+                    result_container=st.container(border=True)
                     compe_analysis=await ai(f"{system_prompt} Please Output a table with 'USP', customer rating out of 10,'weakness' of the following startups and 'how to capitalize' on these weaknesses as a competitor.Startups to compete:{search_string}  ")
                     result_container.write("\n\n")
                     result_container.write(compe_analysis)
