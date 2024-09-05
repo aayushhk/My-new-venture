@@ -22,10 +22,7 @@ async def main():
             </style>
             """
 
-st.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
-
-    
- 
+    st.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
     st.set_page_config(layout="wide")
     welcome=st.container(border=True)
     welcome.title("Welcome")
