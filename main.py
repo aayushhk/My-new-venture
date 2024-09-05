@@ -363,7 +363,7 @@ async def main():
                         data=PDFbyte,
                         file_name=pdffilename,
                         mime='application/octet-stream')
-                else:
+            else:
                     st.warning("Enter idea or upload a ppt file to continue . . .")
         
 
