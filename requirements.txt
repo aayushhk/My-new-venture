@@ -3,3 +3,4 @@ asyncio
 fpdf
 openai
 python-pptx
+markdown_pdf
