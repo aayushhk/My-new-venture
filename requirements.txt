@@ -1,7 +1,8 @@
+smtplib
 markdown-pdf
 duckduckgo-search
 asyncio
 fpdf
 openai
 python-pptx
-smtplib
+
