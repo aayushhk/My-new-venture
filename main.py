@@ -25,7 +25,7 @@ async def main():
     #user_idea = st.text_area("Enter your startup idea name and answer the following question if you know.")
     column1,column2=st.columns(2)
     
-    #question_set=await ai("Act as a startup councellor. Ask the user everything you need to know about a startup to start evaluation. Be easy and direct. Output: Only questions")
+    #question_set=await ai("Act as a startup counsellor. Ask the user everything you need to know about a startup to start evaluation. Be easy and direct. Output: Only questions")
     
         
     column1.write("I'm excited to learn more about your startup! To better understand your vision, could you share the name of your startup and the specific problem you're aiming to solve?\n I’d also love to know who your target audience is and what makes your value proposition unique. What products or services are you offering, and how do you plan to generate revenue? Understanding your current stage of development and any market research you've conducted will provide valuable insights.\n Additionally, what is your strategy for reaching your target audience, and how is your team structured? Are you currently seeking investment, and what are your short-term and long-term goals?\n Lastly, what challenges do you foresee, and how will you measure success with key performance indicators? Your answers will help in crafting a comprehensive plan for your startup's growth.")
@@ -80,7 +80,7 @@ async def main():
     target_audience=( "Evaluate and generate the following"
 
     "Demographics of [your target audience]"
-    "Consumer behavior in [your industry/market]"
+    "Consumer behaviour in [your industry/market]"
     "Preferences and needs of [your target audience] "
     "for the startup:" )
 
@@ -307,7 +307,7 @@ async def main():
                     
 
                     # Initialize the PDF with a TOC that includes headings up to level 2
-                    pdf = MarkdownPdf(toc_level=2)
+                    pdf = MarkdownPdf()
                     user_csss='h1,h2,h3,h4,h5,h6,li{margin-bottom:.5em}body,th{background-color:#fff}body{margin:0;font-family:"Source Sans Pro",sans-serif;font-weight:400;line-height:1.6;color:#31333f;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:auto}h1,h2,h3,h4,h5,h6{color:#333;margin-top:1em}h1{font-size:2em}h2{font-weight:600;color:#31333f;letter-spacing:-.005em;padding:1rem 0;margin:0;line-height:1.2}h4{font-size:1.25em}h5{font-size:1.125em}h6{font-size:1em}p{margin:0 0 1em}strong{font-weight:700}em{font-style:italic}ol,ul{margin:0 0 1em 1em}ul{list-style-type:disc}ol{list-style-type:decimal}table{width:100%;display:table;border-collapse:collapse;box-sizing:border-box;text-indent:initial;unicode-bidi:isolate;border-spacing:2px;border-color:gray}td,th{border:1px solid #ddd;padding:8px;text-align:left}code,pre{background-color:#f4f4f4;border-radius:4px}pre{padding:1em}code{padding:.2em;font-family:monospace}a{color:#06c;text-decoration:none}a:hover{text-decoration:underline}'
 
 
