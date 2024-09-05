@@ -133,7 +133,7 @@ async def main():
         # start TLS for security
         s.starttls()
         # Authentication
-        s.login("aayushhpandey@gmail.com", "jlfd zzof idrz phgv")
+        s.login("aayushhpandey@gmail.com", st.secrets["app_pass"])
         # message to be sent
         message = email_content
         # sending the mail
