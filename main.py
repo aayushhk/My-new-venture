@@ -19,7 +19,7 @@ async def main():
     welcome=st.container(border=True)
     welcome.title("Welcome")
     welcome.subheader("Please enter your business Idea. Or Upload your presentation to get full analysis.")
-    welcome.write("Your input matters!","Remember, the more information you will provide,the better the report will be.")
+    welcome.write("Your input matters! Remember, the more information you will provide,the better the report will be.")
     
     #user_idea = st.text_area("Enter your startup idea name and answer the following question if you know.")
     column1,column2=st.columns(2)
