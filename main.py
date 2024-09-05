@@ -371,7 +371,7 @@ async def main():
             
             
         else:
-                    st.warning("Enter idea or upload a ppt file to continue . . .")
+                    col2_con.error("Enter idea or upload a ppt file to continue . . .")
         
 
     
