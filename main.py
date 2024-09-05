@@ -34,8 +34,8 @@ async def main():
     
 
 
-    #system_prompt=("You are a senior market analyst,angel-investor and lead of operations.Keep output tokens low. Output numbered lists, not bullets. Do not output warnings or notes—just the requested sections. Do not repeat items in the output sections. Do not start items with the same opening words. Provide headings, subheadings, tables, links and use charmap supported emojis in the headings. Output markdown with toc_level=2. This is the year 2024")
-    system_prompt=("output MAKDOWN HEADING, SUBHEADING, texts, tables, links, lists to test MARKDOWN DISPLAYING ON MY APP. DUMMY TEXT ONLY FOR TEST. keep it very short")
+    system_prompt=("You are a senior market analyst,angel-investor and lead of operations.Keep output tokens low. Output numbered lists, not bullets. Do not output warnings or notes—just the requested sections. Do not repeat items in the output sections. Do not start items with the same opening words. Provide headings, subheadings, tables, links and use charmap supported emojis in the headings. Output markdown with toc_level=2. This is the year 2024")
+    #system_prompt=("output MAKDOWN HEADING, SUBHEADING, texts, tables, links, lists to test MARKDOWN DISPLAYING ON MY APP. DUMMY TEXT ONLY FOR TEST. keep it very short")
 
 
 
