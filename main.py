@@ -13,6 +13,17 @@ from pathlib import Path
 
 async def main():
 
+    REMOVE_PADDING_FROM_SIDES="""
+            <style>
+                .block-container {
+                    padding-top: 0rem;
+                    padding-bottom: 0rem;
+                }   
+            </style>
+            """
+
+st.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
+
     
  
     st.set_page_config(layout="wide")
