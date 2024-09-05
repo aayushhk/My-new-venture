@@ -40,23 +40,6 @@ async def main():
     ppt_uploader=col2_con.file_uploader("","pptx")
     #analyse_expander=c.expander("Analyse Idea")
     
-    col2_con.write("Which results would you like to see?")
-    c2_1,c2_2=col2_con.columns(2)
-    s1=c2_1.checkbox("Research Material") 
-    s2=c2_2.checkbox("Competitor discovery")
-    s3=c2_1.checkbox("Competition research")
-    s4=c2_2.checkbox("Cost Requirements") 
-    s5=c2_1.checkbox("Industry Trends") 
-    s6=c2_2.checkbox("Market size") 
-    s7=c2_1.checkbox("Customer analysis") 
-    s8=c2_2.checkbox("Entry into market")
-    s9=c2_1.checkbox("Government policies")
-    s10=c2_2.checkbox("Pricing Strategies")
-    s11=c2_1.checkbox("Customer Acquisition Strategies")
-    s12=c2_2.checkbox("SWOT Analysis")
-    s13=c2_1.checkbox("TODO List")
-    s14=c2_2.checkbox("Partnerships")
-   
     
          
 
