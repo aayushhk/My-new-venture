@@ -110,7 +110,7 @@ async def main():
         
 
         if save_path.exists():
-            col2_con.success(f'File {ppt_uploader.name} is successfully saved!')
+            col2_con.success(f'{ppt_uploader.name} uploaded successfully! Hit Analyse Idea..')
             
             ppt_text=extract_text_from_pptx(f"./ppt/{ppt_uploader.name}")
             print("---------------------------------")
