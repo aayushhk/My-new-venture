@@ -126,7 +126,7 @@ async def main():
                     print("---------------------------------")
                     print(extracted_keywords)
 
-                    startup=await ai("Provide name, short summary and Scores(Creativity,Uniqueness,feasibility,sustainability,Scalability) out of 10 - for the given startup: "+extracted_keywords+". instructions:Start with subtitle - subtitle:Startup Name. Provide no title or headings. "+system_prompt)
+                    startup=await ai("Provide name, short summary and Scores and a solid and proved reason for this score-(Creativity,Uniqueness,feasibility,sustainability,Scalability) out of 10[Be a strong critic] - for the given startup: "+extracted_keywords+". instructions:Start with subtitle - subtitle:Startup Name. Provide no title or headings. "+system_prompt)
                     
                     search_query=await ai("summerize this startup in 10 or less words for google search query.Do not output any symbols.Return Query Only."+extracted_keywords)
                     print(search_query)
