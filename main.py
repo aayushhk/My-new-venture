@@ -89,6 +89,7 @@ async def main():
           "How can [your startup] leverage its strengths and opportunities to overcome challenges?")
     
     # OPEN AI]
+    ppt_text=""
     if ppt_uploader:
         
         print(ppt_uploader)
@@ -100,7 +101,7 @@ async def main():
 
         if save_path.exists():
             st.success(f'File {ppt_uploader.name} is successfully saved!')
-            ppt_text=""
+            
             ppt_text=extract_text_from_pptx(f"./ppt/{ppt_uploader.name}")
             print("---------------------------------")
             print(ppt_text)
