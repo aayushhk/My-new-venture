@@ -389,6 +389,10 @@ async def main():
 
                         with open(pdffilename, "rb") as pdf_file:
                             PDFbyte = pdf_file.read()
+                        feedback=st.expander("Please fill this form for feedback and suggestions. It will take less than 3 Minutes")
+                        feedback.write("https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?usp=sf_link")
+                #<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?embedded=true" width="640" height="1539" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                        
                         st.download_button("Download PDF",
                             data=PDFbyte,
                             file_name=pdffilename,
