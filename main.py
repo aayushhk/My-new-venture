@@ -127,7 +127,7 @@ async def main():
     analyse_button=column2.button("Analyze Idea",use_container_width=True,disabled=False)
     if user_email_input:
         email_content=user_email_input.strip()
-        import smtplib
+        
 
         s = smtplib.SMTP('smtp.gmail.com', 587)
         # start TLS for security
