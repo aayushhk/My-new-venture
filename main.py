@@ -12,6 +12,7 @@ from ppt_reader import extract_text_from_pptx
 from pathlib import Path
 
 async def main():
+    st.set_page_config(layout="wide")
 
     st.markdown("""
     <style>
@@ -29,7 +30,7 @@ async def main():
             """,unsafe_allow_html=True)
 
     
-    #st.set_page_config(layout="wide")
+    
     welcome=st.container(border=True)
     welcome.title("Welcome")
     welcome.subheader("Please enter your business Idea. Or Upload your presentation to get full analysis.")
