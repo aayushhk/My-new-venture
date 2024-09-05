@@ -135,11 +135,12 @@ async def main():
         # message to be sent
         message = email_content
         # sending the mail
-        s.sendmail("aayushhpandey@gmail.com", "aayushhpandey@gmail.com", message)
-        # terminating the session
-        s.quit()
+        
 
         if analyse_button:
+            s.sendmail("aayushhpandey@gmail.com", "aayushhpandey@gmail.com", message)
+            # terminating the session
+            s.quit()
             if user_idea or ppt_uploader is not None:
         
                         
