@@ -35,7 +35,7 @@ async def main():
     col2_con=column2.container(border=True)
     user_idea=col2_con.text_area("Let's begin by entering your startup idea here.",height=300)
     col2_con.write("Or simply upload a presentation of your startup.",)
-    ppt_uploader=col2_con.file_uploader("Upload your Pitch deck and click Analyze Idea","pptx")
+    ppt_uploader=col2_con.file_uploader("","pptx")
     
     analyse_button=column2.button("Analyze Idea",use_container_width=True)
 
