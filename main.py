@@ -13,21 +13,7 @@ from pathlib import Path
 
 async def main():
     st.set_page_config(layout="wide")
-
-    st.markdown("""
-    <style>
-            header{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    height: 0;
-    background: rgb(255, 255, 255);
-    outline: none;
-    z-index: 999990;
-    display: none;}
-    </style>
-            """,unsafe_allow_html=True)
+    
 
     
     
@@ -139,7 +125,7 @@ async def main():
 
                     search_query=await ai("summerize this startup in 10 or less words for google search query for best results.Do not output any symbols.Return Query Only."+extracted_keywords)
                     print(search_query)
-                    result_container.write(search_query)
+                    ##result_container.write(search_query)
                     print("------------------------")
 
 
