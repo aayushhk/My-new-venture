@@ -1,4 +1,3 @@
-smtplib
 markdown-pdf
 duckduckgo-search
 asyncio
