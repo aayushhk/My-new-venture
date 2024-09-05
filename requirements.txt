@@ -4,4 +4,4 @@ asyncio
 fpdf
 openai
 python-pptx
-
+SMTPEmail
