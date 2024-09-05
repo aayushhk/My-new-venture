@@ -132,9 +132,9 @@ async def main():
                     ##result_container.write(search_query)
                     print("------------------------")
 
-
+                    result_container=st.container(border=True)
                     pdf_links=await web(search_query+" filetype:pdf")
-                    links_expander=st.expander("Important links for Research",False)
+                    links_expander=result_container.expander("Important links for Research",False)
                     c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
                 
                     
@@ -166,7 +166,7 @@ async def main():
                         web_box.write(f"\n\nNEWS Link: {link['url']}")
 
                     #competitions analysis
-                    result_container=st.container(border=True)
+                    
                     result_container.write(startup)
                     search_string=await ai(search_term+extracted_keywords+system_prompt+"Heading: Competition Discovery")
                     print(search_string)
