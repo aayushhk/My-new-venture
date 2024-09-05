@@ -48,7 +48,7 @@ async def ai(idea_prompt: str) -> str:
     return results
 
 async def chatgpt_fallback(chat_input: str) -> str:
-    openai.api_key = "API KEY"  # Replace with your OpenAI API key
+    openai.api_key = st.secrets["API_KEY"]  # Replace with your OpenAI API key
 
     response = openai.chat.completions.create(
         model="gpt-4o-mini",
