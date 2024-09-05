@@ -318,7 +318,7 @@ async def main():
 
                     
                     # Add the first section, without including it in the TOC
-                    pdf.add_section(Section("# Startup Report by My New Venture. Thanks for using the app."))
+                    pdf.add_section(Section("##Startup Report by My New Venture. Thanks for using the app."))
                     pdf.add_section(Section(startup),toc=False)
                     pdf.add_section(Section(search_string,toc=False),
                                     user_css=user_csss)
