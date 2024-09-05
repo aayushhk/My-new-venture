@@ -2,3 +2,4 @@ duckduckgo-search
 asyncio
 fpdf
 openai
+python-pptx
