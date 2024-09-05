@@ -125,7 +125,9 @@ async def main():
                     print("---------------------------------")
                     print(extracted_keywords)
 
-                    search_query=await ai("summerize this startup in 10 or less words for google search query for best results.Do not output any symbols.Return Query Only."+extracted_keywords)
+                    startup=await ai("Provide name, details and Scores(Creativity,Uniqueness,feasibility,sustainability,Scalability) out of 10 - for the given startup: "+extracted_keywords+". instructions: Heading:Startup Name "+system_prompt)
+                    
+                    search_query=await ai("summerize this startup in 10 or less words for google search query.Do not output any symbols.Return Query Only."+extracted_keywords)
                     print(search_query)
                     ##result_container.write(search_query)
                     print("------------------------")
@@ -165,6 +167,7 @@ async def main():
 
                     #competitions analysis
                     result_container=st.container(border=True)
+                    result_container.write(startup)
                     search_string=await ai(search_term+extracted_keywords+system_prompt+"Heading: Competition Discovery")
                     print(search_string)
                     print("---------------------------")
@@ -312,7 +315,7 @@ async def main():
                     
                     user_csss='h1,h2,h3,h4,h5,h6,li{margin-bottom:.5em}body,th{background-color:#fff}body{margin:0;font-family:"Source Sans Pro",sans-serif;font-weight:400;line-height:1.6;color:#31333f;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:auto}h1,h2,h3,h4,h5,h6{color:#333;margin-top:1em}h1{font-size:2em}h2{font-weight:600;color:#31333f;letter-spacing:-.005em;padding:1rem 0;margin:0;line-height:1.2}h4{font-size:1.25em}h5{font-size:1.125em}h6{font-size:1em}p{margin:0 0 1em}strong{font-weight:700}em{font-style:italic}ol,ul{margin:0 0 1em 1em}ul{list-style-type:disc}ol{list-style-type:decimal}table{width:100%;display:table;border-collapse:collapse;box-sizing:border-box;text-indent:initial;unicode-bidi:isolate;border-spacing:2px;border-color:gray}td,th{border:1px solid #ddd;padding:8px;text-align:left}code,pre{background-color:#f4f4f4;border-radius:4px}pre{padding:1em}code{padding:.2em;font-family:monospace}a{color:#06c;text-decoration:none}a:hover{text-decoration:underline}'
 
-                    startup=await ai("Provide name, details and Scores(Creativity,Uniqueness,feasibility,sustainability,Scalability)  for the given startup: "+extracted_keywords+". instructions: "+system_prompt)
+                    
                     # Add the first section, without including it in the TOC
                     pdf.add_section(Section(startup))
                     pdf.add_section(Section(search_string,toc=False),
