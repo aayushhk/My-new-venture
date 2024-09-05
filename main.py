@@ -32,9 +32,11 @@ async def main():
         
     column1.write("I'm excited to learn more about your startup! To better understand your vision, could you share the name of your startup and the specific problem you're aiming to solve?\n I’d also love to know who your target audience is and what makes your value proposition unique. What products or services are you offering, and how do you plan to generate revenue? Understanding your current stage of development and any market research you've conducted will provide valuable insights.\n Additionally, what is your strategy for reaching your target audience, and how is your team structured? Are you currently seeking investment, and what are your short-term and long-term goals?\n Lastly, what challenges do you foresee, and how will you measure success with key performance indicators? Your answers will help in crafting a comprehensive plan for your startup's growth.")
     #column1.download_button("Download PDF","test.pdf","testing.pdf")
-    user_idea=column2.text_area("Enter your startup idea name and answer the following question if you know.",height=300)
-    column2.write("Or simply upload a presentation of your startup having sufficient information to be analysed.",)
-    ppt_uploader=column2.file_uploader("Upload your Pitch deck","pptx")
+    col2_con=column2.container(border=True)
+    user_idea=col2_con.text_area("Enter your startup idea name and answer the following question if you know.",height=300)
+    col2_con.write("Or simply upload a presentation of your startup having sufficient information to be analysed.",)
+    ppt_uploader=col2_con.file_uploader("Upload your Pitch deck","pptx")
+    
     analyse_button=column2.button("Analyze Idea",use_container_width=True)
 
     
