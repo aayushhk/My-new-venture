@@ -162,12 +162,14 @@ async def main():
                         web_box.write(f"\n\nNEWS Link: {link['url']}")
 
                     #competitions analysis
+                    result_container=st.container(border=True)
                     search_string=await ai(search_term+extracted_keywords+system_prompt+"Heading: Competition Discovery")
                     print(search_string)
                     print("---------------------------")
                     result_container.write("\n\n")
                     result_container.markdown(search_string)
-                    result_container=st.container(border=True)
+            
+                    
                     compe_analysis=await ai(f"{system_prompt} Please Output a table with 'USP', customer rating out of 10,'weakness' of the following startups and 'how to capitalize' on these weaknesses as a competitor.Startups to compete:{search_string}  ")
                     result_container.write("\n\n")
                     result_container.write(compe_analysis)
