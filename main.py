@@ -13,7 +13,8 @@ from pathlib import Path
 
 async def main():
 
-    REMOVE_PADDING_FROM_SIDES="""
+    st.markdown("""
+    <style>
             header{
     position: fixed;
     top: 0px;
@@ -23,10 +24,11 @@ async def main():
     background: rgb(255, 255, 255);
     outline: none;
     z-index: 999990;
-    display: none;
-            """
+    display: none;}
+    </style>
+            """,unsafe_allow_html=True)
 
-    st.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
+    
     st.set_page_config(layout="wide")
     welcome=st.container(border=True)
     welcome.title("Welcome")
