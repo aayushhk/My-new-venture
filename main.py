@@ -1,4 +1,5 @@
 import asyncio
+import os
 #import requests
 import streamlit as st
 from backend import web,webai,ai
@@ -33,8 +34,8 @@ async def main():
     
 
 
-    system_prompt=("You are a senior market analyst,angel-investor and lead of operations.Keep output tokens low. Output numbered lists, not bullets. Do not output warnings or notes—just the requested sections. Do not repeat items in the output sections. Do not start items with the same opening words. Provide headings, subheadings, tables, links and use charmap supported emojis in the headings. Output markdown with toc_level=2. This is the year 2024")
-    #system_prompt=("output MAKDOWN HEADING, SUBHEADING, texts, tables, links, lists to test MARKDOWN DISPLAYING ON MY APP. DUMMY TEXT ONLY FOR TEST. keep it very short")
+    #system_prompt=("You are a senior market analyst,angel-investor and lead of operations.Keep output tokens low. Output numbered lists, not bullets. Do not output warnings or notes—just the requested sections. Do not repeat items in the output sections. Do not start items with the same opening words. Provide headings, subheadings, tables, links and use charmap supported emojis in the headings. Output markdown with toc_level=2. This is the year 2024")
+    system_prompt=("output MAKDOWN HEADING, SUBHEADING, texts, tables, links, lists to test MARKDOWN DISPLAYING ON MY APP. DUMMY TEXT ONLY FOR TEST. keep it very short")
 
 
 
@@ -95,6 +96,7 @@ async def main():
         save_path = Path(save_folder, ppt_uploader.name)
         with open(save_path, mode='wb') as w:
             w.write(ppt_uploader.getvalue())
+        
 
         if save_path.exists():
             st.success(f'File {ppt_uploader.name} is successfully saved!')
@@ -102,6 +104,7 @@ async def main():
             ppt_text=extract_text_from_pptx(f"./ppt/{ppt_uploader.name}")
             print("---------------------------------")
             print(ppt_text)
+            os.remove(f"./ppt/{ppt_uploader.name}")
     if analyse_button:
 
         extracted_keywords=await ai(idea_prompt+". "+user_idea+ppt_text)
@@ -348,10 +351,12 @@ async def main():
 
         with open(pdffilename, "rb") as pdf_file:
             PDFbyte = pdf_file.read()
-        st.download_button("Download PDF",
+        col1,colu2=st.columns(2)
+        colu2.download_button("Download PDF",
             data=PDFbyte,
             file_name=pdffilename,
-            mime='application/octet-stream')
+            mime='application/octet-stream',use_container_width=True)
+        
 
     
 
