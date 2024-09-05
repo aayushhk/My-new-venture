@@ -11,7 +11,7 @@ from io import BytesIO
 from ppt_reader import extract_text_from_pptx
 from pathlib import Path
 from markdown_pdf import MarkdownPdf, Section
-pdf = MarkdownPdf(toc_level=3)
+pdf = MarkdownPdf(toc_level=2)
 
 async def main():
     st.set_page_config(layout="wide",page_title="My New Venture",page_icon="🪙")
