@@ -180,7 +180,7 @@ async def main():
                     result_container.write("\n\n")
                     result_container.write(compe_analysis)
 
-                    cost_requires=await ai(system_prompt+"What are the really important cost requirements for quickly launching the MVP of the given startup. Return a table with all costs in INR "+extracted_keywords)
+                    cost_requires=await ai(system_prompt+"Really important costs involved for quickly launching the MVP of the given startup for 1000 users. Return a table with all costs in Rupees (Covert into Rupees if needed) "+extracted_keywords)
                     print(cost_requires)
                     print("---------------------------")
                     result_container.write("\n\n")
