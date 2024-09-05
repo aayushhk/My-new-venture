@@ -29,7 +29,7 @@ async def main():
     
     column1.title("🪙 MY NEW VENTURE")
     column1.subheader("Please enter your business Idea. Or Upload your presentation to get full analysis.")
-    column1.info("Your input matters! Remember, the more information you will provide,the better the report will be.")   
+    column1.info("Remember, the more information you will provide,the better the report will be.")   
     column1.write("I'm excited to learn more about your startup! To better understand your vision, could you share the name of your startup and the specific problem you're aiming to solve?\n I’d also love to know who your target audience is and what makes your value proposition unique. What products or services are you offering, and how do you plan to generate revenue? Understanding your current stage of development and any market research you've conducted will provide valuable insights.\n Additionally, what is your strategy for reaching your target audience, and how is your team structured? Are you currently seeking investment, and what are your short-term and long-term goals?\n Lastly, what challenges do you foresee, and how will you measure success with key performance indicators? Your answers will help in crafting a comprehensive plan for your startup's growth.")
     #column1.download_button("Download PDF","test.pdf","testing.pdf")
     col2_con=column2.container(border=True)
