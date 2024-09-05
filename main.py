@@ -116,13 +116,15 @@ async def main():
 
         if user_idea or ppt_uploader is not None:
 
+            
+                    result_container=st.container(border=True)
                     extracted_keywords=await ai(idea_prompt+". "+user_idea+ppt_text)
                     print("---------------------------------")
                     print(extracted_keywords)
 
                     search_query=await ai("summerize this startup in 10 or less words for google search query for best results.Do not output any symbols.Return Query Only."+extracted_keywords)
                     print(search_query)
-                    st.write(search_query)
+                    result_container.write(search_query)
                     print("------------------------")
 
 
@@ -159,10 +161,10 @@ async def main():
                         web_box.write(f"\n\nNEWS Link: {link['url']}")
 
                     #competitions analysis
-                    search_string=await ai(search_term+extracted_keywords+system_prompt)
+                    search_string=await ai(search_term+extracted_keywords+system_prompt+"Heading: Competition Discovery")
                     print(search_string)
                     print("---------------------------")
-                    st.write("\n\n")
+                    result_container.write("\n\n")
                     st.markdown(search_string)
                 
                     #competitors=await ai(Pricing_evaluation+search_string+system_prompt)
