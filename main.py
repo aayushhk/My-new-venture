@@ -338,6 +338,16 @@ async def main():
 
                         with open(pdffilename, "rb") as pdf_file:
                             PDFbyte = pdf_file.read()
+                        
+                        feedback=st.expander("Please fill this form for feedback and suggestions. It will take less than 3 Minutes")
+                        feedback.write("https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?usp=sf_link")
+                #<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?embedded=true" width="640" height="1539" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                        st.toast("⏬ You can Download the report now!")
+                        st.download_button("Download PDF",
+                            data=PDFbyte,
+                            file_name=pdffilename,
+                            mime='application/octet-stream')
+                        
                         links_expander=result_container.expander("Important links for Research",True)
                         
                         c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
@@ -381,15 +391,6 @@ async def main():
 
 
 
-                        feedback=st.expander("Please fill this form for feedback and suggestions. It will take less than 3 Minutes")
-                        feedback.write("https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?usp=sf_link")
-                #<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?embedded=true" width="640" height="1539" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                        st.toast("⏬ You can Download the report now!")
-                        st.download_button("Download PDF",
-                            data=PDFbyte,
-                            file_name=pdffilename,
-                            mime='application/octet-stream')
-                    
                 
             else:
                     col2_con.error("Enter idea or upload a ppt file to continue . . .")
