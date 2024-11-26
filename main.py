@@ -142,43 +142,7 @@ async def main():
 
                         result_container=st.container(border=True)
                         
-                        links_expander=result_container.expander("Important links for Research",True)
-                        st.info("✨ We have collected few documents that matches your idea.")
-                        c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
-                    
-                        c1.subheader("PDF Files")
-                        c2.subheader("DOCX")
-                        c3.subheader("Videos")
-                        c4.subheader("News Links")
                         
-                      #'''for link in pdf_links:
-                          
-
-                           # pdf_links=await web(search_query+" filetype:pdf")  
-                            #web_box=c1.container(border=True)
-                            #web_box.write(f"{link['title']}")
-                            #web_box.write(f"\n\nPDF Link: {link['href']}")
-                            
-                        #doc_links=await web(search_query+" filetype:docx")
-                       # for link in doc_links:
-                          #  web_box=c2.container(border=True)
-                           # web_box.write(f"{link['title']}")
-                            #web_box.write(f"\n\nDOCS Link: {link['href']}") '''
-                        
-                        search_videos=AsyncDDGS().videos(search_query, max_results=1)
-                        print(search_videos)
-                        for link in search_videos:
-                            web_box=c3.container(border=True)
-                            web_box.write(f"{link['title']}")
-                            web_box.write(f"\n\nVIDEO Link: {link['content']}")
-
-                        search_news=AsyncDDGS().news(search_query+" updates", max_results=1)
-                        print(search_news)
-                        for link in search_news:
-                            web_box=c4.container(border=True)
-                            web_box.write(f"{link['title']}")
-                            web_box.write(f"\n\nNEWS Link: {link['url']}")
-
                         #competitions analysis
                         
                         result_container.write(startup)
@@ -272,7 +236,44 @@ async def main():
                         result_container.markdown(partnerships)
 
 
+                        links_expander=result_container.expander("Important links for Research",True)
+                        link_expander.info("✨ We have collected few documents that matches your idea.")
+                        c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
+                    
+                        c1.subheader("PDF Files")
+                        c2.subheader("DOCX")
+                        c3.subheader("Videos")
+                        c4.subheader("News Links")
+                
+                        pdf_links=await web(search_query+" filetype:pdf") 
+                        for link in pdf_links:
+                          
+
+                             
+                            web_box=c1.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nPDF Link: {link['href']}")
+                            
+                        doc_links=await web(search_query+" filetype:docx")
+                        for link in doc_links:
+                            web_box=c2.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nDOCS Link: {link['href']}") '''
                         
+                        search_videos=AsyncDDGS().videos(search_query, max_results=1)
+                        print(search_videos)
+                        for link in search_videos:
+                            web_box=c3.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nVIDEO Link: {link['content']}")
+
+                        search_news=AsyncDDGS().news(search_query+" updates", max_results=1)
+                        print(search_news)
+                        for link in search_news:
+                            web_box=c4.container(border=True)
+                            web_box.write(f"{link['title']}")
+                            web_box.write(f"\n\nNEWS Link: {link['url']}")
+
 
                         
 
@@ -317,8 +318,7 @@ async def main():
                             "Partnerships": partnerships
                             }
 
-                        hook_url = "http://localhost:5678/webhook-test/initialize"
-                        #response = requests.post(hook_url, json=data)
+                       
 
 
 
