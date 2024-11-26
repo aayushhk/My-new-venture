@@ -151,19 +151,19 @@ async def main():
                         c3.subheader("Videos")
                         c4.subheader("News Links")
                         
-                      """  for link in pdf_links:
+                      #'''for link in pdf_links:
                           
 
-                            pdf_links=await web(search_query+" filetype:pdf")  
-                            web_box=c1.container(border=True)
-                            web_box.write(f"{link['title']}")
-                            web_box.write(f"\n\nPDF Link: {link['href']}")
+                           # pdf_links=await web(search_query+" filetype:pdf")  
+                            #web_box=c1.container(border=True)
+                            #web_box.write(f"{link['title']}")
+                            #web_box.write(f"\n\nPDF Link: {link['href']}")
                             
-                        doc_links=await web(search_query+" filetype:docx")
-                        for link in doc_links:
-                            web_box=c2.container(border=True)
-                            web_box.write(f"{link['title']}")
-                            web_box.write(f"\n\nDOCS Link: {link['href']}") """
+                        #doc_links=await web(search_query+" filetype:docx")
+                       # for link in doc_links:
+                          #  web_box=c2.container(border=True)
+                           # web_box.write(f"{link['title']}")
+                            #web_box.write(f"\n\nDOCS Link: {link['href']}") '''
                         
                         search_videos=AsyncDDGS().videos(search_query, max_results=1)
                         print(search_videos)
