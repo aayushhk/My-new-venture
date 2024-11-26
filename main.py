@@ -35,7 +35,7 @@ async def main():
     #column1.download_button("Download PDF","test.pdf","testing.pdf")
     col2_con=column2.container(border=True)
     user_email_input=col2_con.text_input("Please enter your email address to continue.",placeholder="Email address",value="")
-    user_idea=col2_con.text_area("Let's begin by entering your startup idea here.",height=230)
+    user_idea=col2_con.text_area("Let's begin by entering your startup idea here.",height=150)
     col2_con.write("Or simply upload a presentation of your startup.",)
     ppt_uploader=col2_con.file_uploader("","pptx")
     #analyse_expander=c.expander("Analyse Idea")
@@ -122,7 +122,7 @@ async def main():
 
 
     
-    analyse_button=column2.button("Analyze Idea",use_container_width=True,disabled=False)
+    analyse_button=column2.button("Analyze Idea",use_container_width=True,disabled=False,type="primary")
     if user_email_input:
         if analyse_button:
             
