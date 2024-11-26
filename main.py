@@ -142,7 +142,7 @@ async def main():
 
                         result_container=st.container(border=True)
                         pdf_links=await web(search_query+" filetype:pdf")
-                        links_expander=result_container.expander("Important links for Research",False)
+                        links_expander=result_container.expander("Important links for Research",True)
                         st.info("✨ We have collected few documents that matches your idea.")
                         c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
                     
