@@ -141,7 +141,7 @@ async def main():
                         print("------------------------")
 
                         result_container=st.container(border=True)
-                        pdf_links=await web(search_query+" filetype:pdf")
+                        pdf_links=await web(search_query+" filetype:pdf", max_results=1)
                         links_expander=result_container.expander("Important links for Research",True)
                         st.info("✨ We have collected few documents that matches your idea.")
                         c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
@@ -157,20 +157,20 @@ async def main():
                             web_box.write(f"{link['title']}")
                             web_box.write(f"\n\nPDF Link: {link['href']}")
                             
-                        doc_links=await web(search_query+" filetype:docx")
+                        doc_links=await web(search_query+" filetype:docx", max_results=1)
                         for link in doc_links:
                             web_box=c2.container(border=True)
                             web_box.write(f"{link['title']}")
                             web_box.write(f"\n\nDOCS Link: {link['href']}")
                         
-                        search_videos=AsyncDDGS().videos(search_query, max_results=6)
+                        search_videos=AsyncDDGS().videos(search_query, max_results=1)
                         print(search_videos)
                         for link in search_videos:
                             web_box=c3.container(border=True)
                             web_box.write(f"{link['title']}")
                             web_box.write(f"\n\nVIDEO Link: {link['content']}")
 
-                        search_news=AsyncDDGS().news(search_query+" updates", max_results=6)
+                        search_news=AsyncDDGS().news(search_query+" updates", max_results=1)
                         print(search_news)
                         for link in search_news:
                             web_box=c4.container(border=True)
