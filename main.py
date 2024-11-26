@@ -15,7 +15,7 @@ pdf = MarkdownPdf(toc_level=2)
 import smtplib
 
 async def main():
-    st.set_page_config(layout="wide",page_title="My New Venture",page_icon="🪙")
+    st.set_page_config(layout="wide",page_title="BizBrain",page_icon="🪙")
     
 
     
@@ -28,10 +28,10 @@ async def main():
     
     #question_set=await ai("Act as a startup counsellor. Ask the user everything you need to know about a startup to start evaluation. Be easy and direct. Output: Only questions")
     
-    column1.title("🪙 MY NEW VENTURE")
+    column1.title("🪙 BizBrain")
     column1.subheader("Please enter your business Idea. Or Upload your presentation to get full analysis.")
     column1.info("Remember, the more information you will provide, the better the report will be.")   
-    column1.write("To better understand your vision, could you share the name of your startup and the specific problem you're aiming to solve?\n\n I’d also love to know who your target audience is and what makes your value proposition unique. What products or services are you offering, and how do you plan to generate revenue? Understanding your current stage of development and any market research you've conducted will provide valuable insights.\n Additionally, what is your strategy for reaching your target audience, and how is your team structured? Are you currently seeking investment, and what are your short-term and long-term goals?\n\n Lastly, what challenges do you foresee, and how will you measure success with key performance indicators? Your answers will help in crafting a comprehensive plan for your startup's growth.")
+    column1.write("To understand your vision better, could you share the name of your startup and the specific problem you aim to solve?\n\n I’d also love to know who your target audience is and what makes your value proposition unique. What products or services are you offering, and how do you plan to generate revenue? Understanding your current stage of development and any market research you've conducted will provide valuable insights.\n Additionally, what is your strategy for reaching your target audience, and how is your team structured? Are you currently seeking investment, and what are your short-term and long-term goals?\n\n Lastly, what challenges do you foresee, and how will you measure success with key performance indicators? Your answers will help in crafting a comprehensive plan for your startup's growth.")
     #column1.download_button("Download PDF","test.pdf","testing.pdf")
     col2_con=column2.container(border=True)
     user_email_input=col2_con.text_input("Please enter your email address to continue.",placeholder="Email address",value="")
@@ -75,12 +75,12 @@ async def main():
         "Create a dictionary containing all information about this startup idea:  \n\n"
         )
     
-    search_term=("Do not output anything else. Say none where you do not find answers. Return names, short description their uniqueness And Pricing plans find top 5 startups (Dont assume, no fake startups) which matches this IN a TABLE: ")
+    search_term=("Do not output anything else. Could you say none where you do not find answers? Return names, a short description of their uniqueness And Pricing plans find the top 5 startups (Dont assume, no fake startups) which matches this IN a TABLE: ")
     #Pricing_evaluation=("Do not explain anything. Output a pricing table with name and prices of the following startups , all available options: ")
     current_trends=("Act as an marketing specialist and find the following: Current trends in [your industry/market]"
         "Future of [your industry] in [your location/country]"
         "Emerging technologies in [your industry] for this startup:" )
-    market_size=("Reseach about the following for the given startup. Give the numbers, Dont be wrong. Recheck the facts and figure generated before responding: 1. Market size of [your industry] in [your country] [current year]"
+    market_size=("Reseach about the following for the given startup. Give the numbers, Dont be wrong. Recheck the facts and figures generated before responding: 1. Market size of [your industry] in [your country] [current year]"
         "2. Projected growth of [your industry] for next 5 years"
         "3. Secret facts supporting this. Startup idea: ")
     
@@ -191,7 +191,7 @@ async def main():
                         result_container.write("\n\n")
                         result_container.write(compe_analysis)
 
-                        cost_requires=await ai(system_prompt+"Really important costs involved for quickly launching the MVP of the given startup for 1000 users. Return a table with all costs in Rupees (Covert into Rupees if needed) "+extracted_keywords)
+                        cost_requires=await ai(system_prompt+"Significant costs involved for quickly launching the MVP of the given startup for 1000 users. Return a table with all costs in Rupees (Covert into Rupees if needed) "+extracted_keywords)
                         print(cost_requires)
                         print("---------------------------")
                         result_container.write("\n\n")
