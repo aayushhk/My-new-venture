@@ -123,24 +123,9 @@ async def main():
 
     
     analyse_button=column2.button("Analyze Idea",use_container_width=True,disabled=False)
-    if user_email_input:
-        email_content=user_email_input.strip()
-        
-
-        s = smtplib.SMTP('smtp.gmail.com', 587)
-        # start TLS for security
-        s.starttls()
-        # Authentication
-        s.login("aayushhpandey@gmail.com", "jlfd zzof idrz phgv")
-        # message to be sent
-        message = email_content
-        # sending the mail
-        
-
+    
         if analyse_button:
-            s.sendmail("aayushhpandey@gmail.com", "aayushhpandey@gmail.com", message)
-            # terminating the session
-            s.quit()
+            
             if user_idea or ppt_uploader is not None:
         
                         
@@ -158,9 +143,13 @@ async def main():
                         result_container=st.container(border=True)
                         pdf_links=await web(search_query+" filetype:pdf")
                         links_expander=result_container.expander("Important links for Research",False)
+                        st.info("✨ We have collected few documents that matches your idea.")
                         c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
                     
-                        
+                        c1.subheader("PDF Files")
+                        c2.subheader("DOCX")
+                        c3.subheader("Videos")
+                        c4.subheader("News Links")
                         for link in pdf_links:
 
                             
@@ -340,9 +329,9 @@ async def main():
 
                         
                         # Add the first section, without including it in the TOC
-                        pdf.add_section(Section("##Startup Report by My New Venture. Thanks for using the app.\n\n"
+                        pdf.add_section(Section("#Startup Evaluation Report.\n  Thanks for using the app.\n\n"
                                             "To evaluate your startup visit: https://mynewventure.streamlit.app \n\n"
-                                            "Contact: https://wa.me/9189xxxxxxxx"),user_css=user_csss)
+                                            "Contact: https://wa.me/918969985598"),user_css=user_csss)
                         pdf.add_section(Section(startup,toc=False),
                                         user_css=user_csss)
                         pdf.add_section(Section(search_string,toc=False),
