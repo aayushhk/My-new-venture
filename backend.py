@@ -2,7 +2,7 @@ import asyncio
 from duckduckgo_search import AsyncDDGS, DDGS
 from duckduckgo_search import exceptions
 import openai
-
+import streamlit as st
 
 
 async def webai(query: str, custom_prompt: str) -> str:
