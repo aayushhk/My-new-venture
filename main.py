@@ -123,7 +123,7 @@ async def main():
 
     
     analyse_button=column2.button("Analyze Idea",use_container_width=True,disabled=False)
-    
+    if user_email_input:
         if analyse_button:
             
             if user_idea or ppt_uploader is not None:
