@@ -128,7 +128,7 @@ async def main():
             
             if user_idea or ppt_uploader is not None:
         
-                        
+                        st.popup("✨ Searching Now")
                         extracted_keywords=await ai(idea_prompt+". "+user_idea+ppt_text)
                         print("---------------------------------")
                         print(extracted_keywords)
@@ -146,6 +146,7 @@ async def main():
                         #competitions analysis
                         
                         result_container.write(startup)
+                        st.popup("✨ Finding competitors")
                         search_string=await ai(search_term+extracted_keywords+system_prompt+"Heading: Competition Discovery")
                         print(search_string)
                         print("---------------------------")
@@ -156,13 +157,13 @@ async def main():
                         compe_analysis=await ai(f"{system_prompt} Please Output a table with 'USP', customer rating out of 10,'weakness' of the following startups and 'how to capitalize' on these weaknesses as a competitor.Startups to compete:{search_string}  ")
                         result_container.write("\n\n")
                         result_container.write(compe_analysis)
-
+                        st.popup("✨ Calculating costs")
                         cost_requires=await ai(system_prompt+"Significant costs involved for quickly launching the MVP of the given startup for 1000 users. Return a table with all costs in Rupees (Covert into Rupees if needed) "+extracted_keywords)
                         print(cost_requires)
                         print("---------------------------")
                         result_container.write("\n\n")
                         result_container.markdown(cost_requires)
-
+                        st.popup("✨ Searching the market")
                         industry_trends=await ai(system_prompt+current_trends+extracted_keywords)
                         print(industry_trends)
                         print("---------------------------")
@@ -180,7 +181,7 @@ async def main():
                         print("---------------------------")
                         result_container.write("\n\n")
                         result_container.markdown(target_audiences)
-
+                        st.popup("✨ Analysing risks")
                         risk_analysis=await ai(system_prompt+"Highlight potential risks and uncertainties that could affect the startup, along with mitigation strategies. Idea:"+user_idea)
                         result_container.write("\n\n")
                         result_container.markdown(risk_analysis)
@@ -196,7 +197,7 @@ async def main():
                         print("---------------------------")
                         result_container.write("\n\n")
                         result_container.markdown(market_entrys)
-
+                        st.popup("✨ Searching Government policies")
                         government_policy=await ai(system_prompt+ govern + extracted_keywords )
                         print(government_policy)
                         print("---------------------------")
@@ -214,13 +215,13 @@ async def main():
                         print("---------------------------")
                         result_container.write("\n\n")
                         result_container.markdown(custom_aqs)
-
+                        st.popup("✨ Performing SWOT analysis")
                         swot_analysis=await ai(system_prompt+swot+extracted_keywords)
                         print(swot_analysis)
                         print("---------------------------")
                         result_container.write("\n\n")
                         result_container.markdown(swot_analysis)
-
+                        st.popup("✨ Generating action plan")
                         todo_list=await ai(system_prompt+"Present a step-by-step action plan to help the user get started, including immediate tasks and long-term milestones. "+extracted_keywords)
                         print(todo_list)
                         print("---------------------------")
@@ -383,7 +384,7 @@ async def main():
                         feedback=st.expander("Please fill this form for feedback and suggestions. It will take less than 3 Minutes")
                         feedback.write("https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?usp=sf_link")
                 #<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd84yB5htONQ55yPTUbUxG3jxi4FUVd_YeytOptzKF-cq-QXA/viewform?embedded=true" width="640" height="1539" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                        
+                        st.popup("⏬ You can Download the report now!")
                         st.download_button("Download PDF",
                             data=PDFbyte,
                             file_name=pdffilename,
