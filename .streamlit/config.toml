@@ -1,8 +1,7 @@
 [theme]
 base="light"
 primaryColor="#02af14"
-[ui]
-hideTopBar = true
+
 [client]
 toolbarMode = "minimal"
 showSidebarNavigation = false
