@@ -258,7 +258,7 @@ async def main():
                         for link in doc_links:
                             web_box=c2.container(border=True)
                             web_box.write(f"{link['title']}")
-                            web_box.write(f"\n\nDOCS Link: {link['href']}") '''
+                            web_box.write(f"\n\nDOCS Link: {link['href']}")
                         
                         search_videos=AsyncDDGS().videos(search_query, max_results=1)
                         print(search_videos)
