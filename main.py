@@ -237,7 +237,7 @@ async def main():
 
 
                         links_expander=result_container.expander("Important links for Research",True)
-                        link_expander.info("✨ We have collected few documents that matches your idea.")
+                        
                         c1,c2,c3,c4=links_expander.columns(4,gap="small",vertical_alignment="top")
                     
                         c1.subheader("PDF Files")
